@@ -1,0 +1,39 @@
+name: dependency-updates
+on:
+  push:
+  schedule:
+    - cron: "0 */6 * * *"
+  workflow_dispatch:
+jobs:
+  w2d-update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: update rv version
+        run: |
+          RV_VERSION="$(
+          git ls-remote --tags https://github.com/reisxd/revanced-builder \
+              | cut -d/ -f3 \
+              | sort -V \
+              | tail -1
+          )"
+          sed -i "s|RV_VERSION=.*|RV_VERSION=$RV_VERSION \\\|" ./Dockerfile
+      - name: update rvx version
+        run: |
+          RVX_VERSION="$(
+          git ls-remote --tags https://github.com/inotia00/rvx-builder \
+              | cut -d/ -f3 \
+              | sort -V \
+              | tail -1
+          )"
+          sed -i "s|RVX_VERSION=.*|RVX_VERSION=$RVX_VERSION \\\|" ./Dockerfile
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v5
+        with:
+          signoff: true
+          delete-branch: true
+          commit-message: update rv/rvx version
+          branch: update-rv-rvx-version
+          title: update rv/rvx version
+          body: update rv/rvx version
