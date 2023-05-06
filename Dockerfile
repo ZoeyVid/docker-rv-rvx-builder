@@ -13,14 +13,14 @@ RUN apk add --no-cache ca-certificates nodejs yarn git && \
     npm_config_target_platform=linux npm_config_target_arch=x64 yarn install --no-lockfile && \
     node-prune && \
     yarn cache clean --all && \
-    pkg -t alpine-x64 -C GZip --out-path dist .; \
+    pkg -t alpine-x64 -C Brotli --output revanced-builder index.js; \
     elif [ "$TARGETARCH" = "arm64" ]; then \
     npm_config_target_platform=linux npm_config_target_arch=arm64 yarn install --no-lockfile && \
     node-prune && \
     yarn cache clean --all && \
-    pkg -t alpine-arm64 -C Brotli --out-path dist .; \
+    pkg -t alpine-arm64 -C Brotli --output revanced-builder index.js; \
     fi && \
-    chmod +x /src/dist/revanced-builder
+    chmod +x /src/revanced-builder
 
 FROM --platform="$BUILDPLATFORM" alpine:3.17.3 as rvx
 
@@ -37,18 +37,18 @@ RUN apk add --no-cache ca-certificates nodejs yarn git && \
     npm_config_target_platform=linux npm_config_target_arch=x64 yarn install --no-lockfile && \
     node-prune && \
     yarn cache clean --all && \
-    pkg -t alpine-x64 -C GZip --out-path dist .; \
+    pkg -t alpine-x64 -C Brotli --output rvx-builder index.js; \
     elif [ "$TARGETARCH" = "arm64" ]; then \
     npm_config_target_platform=linux npm_config_target_arch=arm64 yarn install --no-lockfile && \
     node-prune && \
     yarn cache clean --all && \
-    pkg -t alpine-arm64 -C Brotli --out-path dist .; \
+    pkg -t alpine-arm64 -C Brotli --output rvx-builder index.js; \
     fi && \
-    chmod +x /src/dist/rvx-builder
+    chmod +x /src/rvx-builder
 
 FROM alpine:3.17.3
 RUN wget https://apk.corretto.aws/amazoncorretto.rsa.pub -O /etc/apk/keys/amazoncorretto.rsa.pub && \
     echo "https://apk.corretto.aws" | tee -a /etc/apk/repositories && \
     apk add --no-cache ca-certificates tzdata amazon-corretto-17
-COPY --from=rv  /src/dist/revanced-builder /usr/local/bin/revanced-builder
-COPY --from=rvx /src/dist/rvx-builder      /usr/local/bin/rvx-builder
+COPY --from=rv  /src/revanced-builder /usr/local/bin/revanced-builder
+COPY --from=rvx /src/rvx-builder      /usr/local/bin/rvx-builder
