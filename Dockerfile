@@ -6,7 +6,7 @@ ARG NODE_ENV=production \
 
 WORKDIR /src
 RUN apk add --no-cache ca-certificates nodejs yarn git && \
-    yarng lobal add pkg && \
+    yarn global add pkg && \
     wget https://gobinaries.com/tj/node-prune -O - | sh && \
     git clone --recursive https://github.com/reisxd/revanced-builder --branch "$RV_VERSION" /src && \
     if [ "$TARGETARCH" = "amd64" ]; then \
@@ -30,7 +30,7 @@ ARG NODE_ENV=production \
 
 WORKDIR /src
 RUN apk add --no-cache ca-certificates nodejs yarn git && \
-    yarng lobal add pkg && \
+    yarn global add pkg && \
     wget https://gobinaries.com/tj/node-prune -O - | sh && \
     git clone --recursive https://github.com/reisxd/revanced-builder --branch "$RVX_VERSION" /src && \
     if [ "$TARGETARCH" = "amd64" ]; then \
