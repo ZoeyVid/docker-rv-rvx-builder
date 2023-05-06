@@ -1,0 +1,23 @@
+diff --git a/index.js b/index.js
+index d59e672..e099b2a 100644
+--- a/index.js
++++ b/index.js
+@@ -119,16 +119,8 @@ const cleanExit = async (svr) => {
+   setTimeout(() => process.exit(0), 2_500);
+ };
+ 
+-pf.getPortPromise()
+-  .then((freePort) => {
+-    log(`Listening at port ${freePort}`);
+-    listen(freePort);
+-  })
+-  .catch((err) => {
+-    log(`Unable to determine free ports.\nReason: ${err}`);
+-    log('Falling back to 8080.');
+-    listen(8080);
+-  });
++log(`Listening at port 82`);
++listen(82);
+ 
+ process.on('uncaughtException', (reason) => {
+   log(`An error occured.\n${reason.stack}`);
