@@ -32,7 +32,7 @@ WORKDIR /src
 RUN apk add --no-cache ca-certificates nodejs yarn git && \
     yarn global add pkg && \
     wget https://gobinaries.com/tj/node-prune -O - | sh && \
-    git clone --recursive https://github.com/reisxd/revanced-builder --branch "$RVX_VERSION" /src && \
+    git clone --recursive https://github.com/inotia00/rvx-builder --branch "$RVX_VERSION" /src && \
     if [ "$TARGETARCH" = "amd64" ]; then \
     npm_config_target_platform=linux npm_config_target_arch=x64 yarn install --no-lockfile && \
     node-prune && \
