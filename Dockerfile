@@ -1,7 +1,7 @@
 FROM --platform="$BUILDPLATFORM" alpine:3.17.3 as rvx
 
 ARG NODE_ENV=production \
-    RVX_VERSION=revanced-extended \
+    RVX_VERSION=v3.9.2 \
     TARGETARCH
 
 WORKDIR /src
