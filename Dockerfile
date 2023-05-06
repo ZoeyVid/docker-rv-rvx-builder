@@ -1,7 +1,7 @@
 FROM --platform="$BUILDPLATFORM" alpine:3.17.3 as rv
 
 ARG NODE_ENV=production \
-    RV_VERSION=abc \
+    RV_VERSION=v3.9.1 \
     TARGETARCH
 
 WORKDIR /src
@@ -25,7 +25,7 @@ RUN apk add --no-cache ca-certificates nodejs yarn git && \
 FROM --platform="$BUILDPLATFORM" alpine:3.17.3 as rvx
 
 ARG NODE_ENV=production \
-    RVX_VERSION=abc \
+    RVX_VERSION=v3.9.2 \
     TARGETARCH
 
 WORKDIR /src
