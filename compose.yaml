@@ -1,0 +1,26 @@
+version: "3"
+services:
+  rvx-builder:
+    container_name: rvx-builder
+    image: zoeyvid/docker-rv-rvx-builder
+    restart: always
+    network_mode: bridge
+    ports:
+      - "127.0.0.1:810:8000"
+    volumes:
+      - "/opt/rvx:/data"
+    environment:
+      - "TZ=Europe/Berlin"
+#      - "RV=true" # enable revanced instead of revanced extended, default false
+  rv-builder:
+    container_name: rv-builder
+    image: zoeyvid/docker-rv-rvx-builder
+    restart: always
+    network_mode: bridge
+    ports:
+      - "127.0.0.1:820:8000"
+    volumes:
+      - "/opt/rv:/data"
+    environment:
+      - "TZ=Europe/Berlin"
+      - "RV=true" # enable revanced instead of revanced extended, default false
