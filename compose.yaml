@@ -1,0 +1,11 @@
+version: "3"
+services:
+  docker-rv-rvx-builder:
+    container_name: docker-rv-rvx-builder
+    image: zoeyvid/docker-rv-rvx-builder
+    restart: always
+    ports:
+      - "127.0.0.1:81:81"
+      - "127.0.0.1:82:82"
+    environment:
+      - "TZ=Europe/Berlin"
