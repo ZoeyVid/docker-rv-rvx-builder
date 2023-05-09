@@ -1,11 +1,11 @@
-FROM --platform="$BUILDPLATFORM" alpine:3.17.3 as rvx
+FROM --platform="$BUILDPLATFORM" node:18.16.0-alpine3.17 as rvx
 
 ARG NODE_ENV=production \
     RVX_VERSION=revanced-extended \
     TARGETARCH
 
 WORKDIR /src
-RUN apk add --no-cache ca-certificates nodejs yarn git && \
+RUN apk add --no-cache ca-certificates git && \
     yarn global add pkg && \
     wget https://gobinaries.com/tj/node-prune -O - | sh && \
     git clone --recursive https://github.com/inotia00/rvx-builder --branch "$RVX_VERSION" /src && \
@@ -22,14 +22,14 @@ RUN apk add --no-cache ca-certificates nodejs yarn git && \
     fi && \
     chmod +x /src/rvx-builder
 
-FROM --platform="$BUILDPLATFORM" alpine:3.17.3 as rv
+FROM --platform="$BUILDPLATFORM" 18.16.0-alpine3.17 as rv
 
 ARG NODE_ENV=production \
     RV_VERSION=v3.9.1 \
     TARGETARCH
 
 WORKDIR /src
-RUN apk add --no-cache ca-certificates nodejs yarn git && \
+RUN apk add --no-cache ca-certificates git && \
     yarn global add pkg && \
     wget https://gobinaries.com/tj/node-prune -O - | sh && \
     git clone --recursive https://github.com/reisxd/revanced-builder --branch "$RV_VERSION" /src && \
