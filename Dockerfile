@@ -22,7 +22,7 @@ RUN apk add --no-cache ca-certificates git && \
     fi && \
     chmod +x /src/rvx-builder
 
-FROM --platform="$BUILDPLATFORM" 18.16.0-alpine3.17 as rv
+FROM --platform="$BUILDPLATFORM" node:18.16.0-alpine3.17 as rv
 
 ARG NODE_ENV=production \
     RV_VERSION=v3.9.1 \
