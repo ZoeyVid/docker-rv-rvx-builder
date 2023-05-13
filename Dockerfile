@@ -33,6 +33,7 @@ RUN apk add --no-cache ca-certificates git && \
     yarn global add pkg && \
     wget https://gobinaries.com/tj/node-prune -O - | sh && \
     git clone --recursive https://github.com/reisxd/revanced-builder --branch "$RV_VERSION" /src && \
+    sed -i "s|v3.9.1|v3.9.2|g" /src/wsEvents/checkForUpdates.js && \
     if [ "$TARGETARCH" = "amd64" ]; then \
     npm_config_target_platform=linux npm_config_target_arch=x64 yarn install --no-lockfile && \
     npm_config_target_platform=linux npm_config_target_arch=x64 yarn add --no-lockfile fkill@^7.2.1 && \
