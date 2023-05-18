@@ -25,7 +25,7 @@ RUN apk add --no-cache ca-certificates git && \
 FROM --platform="$BUILDPLATFORM" node:18.16.0-alpine3.17 as rv
 
 ARG NODE_ENV=production \
-    RV_VERSION=main \
+    RV_VERSION=v3.9.3 \
     TARGETARCH
 
 WORKDIR /src
@@ -33,16 +33,13 @@ RUN apk add --no-cache ca-certificates git && \
     yarn global add pkg && \
     wget https://gobinaries.com/tj/node-prune -O - | sh && \
     git clone --recursive https://github.com/reisxd/revanced-builder --branch "$RV_VERSION" /src && \
-    sed -i "s|v3.9.1|v3.9.2|g" /src/wsEvents/checkForUpdates.js && \
     if [ "$TARGETARCH" = "amd64" ]; then \
     npm_config_target_platform=linux npm_config_target_arch=x64 yarn install --no-lockfile && \
-    npm_config_target_platform=linux npm_config_target_arch=x64 yarn add --no-lockfile fkill@^7.2.1 && \
     node-prune && \
     yarn cache clean --all && \
     pkg -t alpine-x64 -C Brotli --output revanced-builder /src; \
     elif [ "$TARGETARCH" = "arm64" ]; then \
     npm_config_target_platform=linux npm_config_target_arch=arm64 yarn install --no-lockfile && \
-    npm_config_target_platform=linux npm_config_target_arch=arm64 yarn add --no-lockfile fkill@^7.2.1 && \
     node-prune && \
     yarn cache clean --all && \
     pkg -t alpine-arm64 -C Brotli --output revanced-builder /src; \
