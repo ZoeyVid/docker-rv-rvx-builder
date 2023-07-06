@@ -1,7 +1,7 @@
 FROM --platform="$BUILDPLATFORM" node:20.3.1-alpine3.17 as rvx
 
 ARG NODE_ENV=production \
-    RVX_VERSION=revanced-extended \
+    RVX_VERSION=v3.9.2 \
     TARGETARCH
 
 WORKDIR /src
