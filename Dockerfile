@@ -50,11 +50,11 @@ FROM alpine:3.18.2
 WORKDIR /data
 RUN wget https://apk.corretto.aws/amazoncorretto.rsa.pub -O /etc/apk/keys/amazoncorretto.rsa.pub && \
     echo "https://apk.corretto.aws" | tee -a /etc/apk/repositories && \
-    apk add --no-cache ca-certificates tzdata amazon-corretto-17
+    apk add --no-cache ca-certificates tzdata tini amazon-corretto-17
     
 COPY            start.sh              /usr/local/bin/start.sh
 COPY --from=rvx /src/rvx-builder      /usr/local/bin/rvx-builder
 COPY --from=rv  /src/revanced-builder /usr/local/bin/revanced-builder
 
-ENTRYPOINT ["start.sh"]
+ENTRYPOINT ["tini", "--", "start.sh"]
 HEALTHCHECK CMD (wget -q http://localhost:8000 -O /dev/null) || exit 1
