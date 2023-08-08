@@ -46,7 +46,7 @@ RUN apk add --no-cache ca-certificates git && \
     fi && \
     chmod +x /src/revanced-builder
 
-FROM alpine:3.18.2
+FROM alpine:3.18.3
 WORKDIR /data
 RUN wget https://apk.corretto.aws/amazoncorretto.rsa.pub -O /etc/apk/keys/amazoncorretto.rsa.pub && \
     echo "https://apk.corretto.aws" | tee -a /etc/apk/repositories && \
