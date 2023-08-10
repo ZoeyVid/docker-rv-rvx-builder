@@ -1,4 +1,4 @@
-FROM --platform="$BUILDPLATFORM" node:18.17.0-alpine3.17 as rvx
+FROM --platform="$BUILDPLATFORM" node:18.17.1-alpine3.17 as rvx
 
 ARG NODE_ENV=production \
     RVX_VERSION=revanced-extended \
@@ -22,7 +22,7 @@ RUN apk add --no-cache ca-certificates git && \
     fi && \
     chmod +x /src/rvx-builder
 
-FROM --platform="$BUILDPLATFORM" node:18.17.0-alpine3.17 as rv
+FROM --platform="$BUILDPLATFORM" node:18.17.1-alpine3.17 as rv
 
 ARG NODE_ENV=production \
     RV_VERSION=v3.9.3 \
